@@ -1,5 +1,4 @@
-<!-- orthomap <img src="orthomap-sticker.png" height="120" align="right"/> -->
-orthomap
+orthomap <img src="img/orthomap-sticker.png" height="120" align="right"/>
 =========================================================
 
 [![Build Status](https://travis-ci.org/ahasverus/orthomap.svg?branch=master)](https://travis-ci.org/ahasverus/orthomap) [![](https://img.shields.io/badge/licence-GPLv3-8f10cb.svg)](http://www.gnu.org/licenses/gpl.html)
