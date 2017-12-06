@@ -43,7 +43,7 @@ orthomap <- function(
   grid       = TRUE,
   grid.color = "#969696",
   grid.type  = 1,
-  grid.size  = 0.25
+  grid.size  = 0.25,
   ...
 ) {
 
