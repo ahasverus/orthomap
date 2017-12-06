@@ -17,11 +17,30 @@
 #' # ...
 
 orthomap <- function(
-  query    = NULL,
-  centre   = c(0, 0),
-  border   = "#FFFFFF",
-  fill     = "#CCCCCC"
+  query      = NULL,
+  centre     = c(0, 0),
+  border     = NA,
+  fill       = "#909090",
+  grid       = TRUE,
+  grid.color = "#969696",
+  ...
 ) {
+
+
+  ### Retrieve country centroid coordinates
+
+  if (!is.null(query)) {
+
+    countries <- maps::map('world', plot = FALSE)$names
+    query     <- countries[grep(tolower(as.character(query)), tolower(countries))]
+
+    if (length(query) == 0) {
+      stop(paste("Unable to find", query, "in maps database."))
+    }
+
+    world  <- maps::map(region = query, plot = FALSE)
+    centre <- c(mean(na.omit(world$y)), mean(na.omit(world$x)))
+  }
 
 
   ### Get World country polygons coordinates (and labels)
@@ -75,19 +94,19 @@ orthomap <- function(
 
       if (unq == 1) { # Polygon is fully on front side
 
-        polylist[[i - 1]] <- Polygons(list(Polygon(thispoly[ , 1:2])), as.character(i - 2))
+        polylist[[i - 1]] <- sp::Polygons(list(sp::Polygon(thispoly[ , 1:2])), as.character(i - 2))
       }
 
-    } else { # front and back present
+    } else { # Polygon is on front and back sides
 
       ind <- thispoly[ , 3] == 0
 
-      # project points "outside" the globe
+      # Project points "outside" the globe
 
       temdist <- pmax(sqrt(rowSums(as.matrix(thispoly[ind, 1:2] ^ 2))), 1e-5)
       thispoly[ind, 1 :2] <- thispoly[ind, 1:2] * (2 - temdist) / temdist
 
-      polylist[[i - 1]] <- Polygons(list(Polygon(thispoly[ , 1:2])), as.character(i - 2))
+      polylist[[i - 1]] <- sp::Polygons(list(sp::Polygon(thispoly[ , 1:2])), as.character(i - 2))
     }
   }
 
@@ -99,10 +118,10 @@ orthomap <- function(
     row.names = unlist(lapply(polylist, function(x) x@ID))
   )
 
-  world <- SpatialPolygonsDataFrame(
-    Sr   = SpatialPolygons(
+  world <- sp::SpatialPolygonsDataFrame(
+    Sr   = sp::SpatialPolygons(
       Srl         = polylist,
-      proj4string = CRS(paste0("+proj=ortho +lat_0=", centre[1], " +lon_0=", centre[2]))
+      proj4string = sp::CRS(paste0("+proj=ortho +lat_0=", centre[1], " +lon_0=", centre[2]))
     ),
     data = country
   )
@@ -115,29 +134,39 @@ orthomap <- function(
     y = round(cos(seq(0, 2 * pi, length.out = 1000)), 10)
   )
 
-  globe <- SpatialPolygons(
+  globe <- sp::SpatialPolygons(
     Srl        = list(
-      Polygons(
+      sp::Polygons(
         srl = list(
-          Polygon(
+          sp::Polygon(
             globe[ , 1:2]
           )
         ),
         ID  = "0"
       )
     ),
-    proj4string = CRS(paste0("+proj=ortho +lat_0=", centre[1], " +lon_0=", centre[2]))
+    proj4string = sp::CRS(paste0("+proj=ortho +lat_0=", centre[1], " +lon_0=", centre[2]))
   )
 
 
   ### Clip polygons with globe
 
-  world <- gIntersection(world, globe, byid = TRUE, drop_lower_td = TRUE)
-  world <- spChFIDs(obj = world, x = rownames(country))
-  world <- SpatialPolygonsDataFrame(
-    Sr   = world,
-    data = country
-  )
+  world <- gBuffer(world, byid = TRUE, width = 0)
+  globe <- gBuffer(globe, byid = TRUE, width = 0)
+  world <- rgeos::gIntersection(world, globe, byid = TRUE, drop_lower_td = TRUE)
+  world <- sp::spChFIDs(obj = world, x = as.character(1:length(world)))
 
 
+  ### Plotting
+
+  par(...)
+
+  plot(world, col = fill, border = border)
+
+  if (grid) {
+    plot(globe, col = "transparent", border = grid.color, lwd = 0.25, add = TRUE)
+    map.grid(labels = FALSE, lty = 1, col = grid.color, lwd = 0.25)
+  }
+
+  return(world)
 }
