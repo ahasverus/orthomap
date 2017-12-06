@@ -1,0 +1,15 @@
+language: r
+warnings_are_errors: false
+sudo: required
+
+notifications:
+  email:
+    recipients:
+      - nicolas.casajus@gmail.com
+
+r_packages:
+  - maps
+  - mapproj
+  - rgeos
+  - sp
+  - rgdal

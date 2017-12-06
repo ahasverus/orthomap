@@ -65,14 +65,11 @@ world <- orthomap(
   grid.size  = 0.25
 )
 
-
 ### Short version
 world <- orthomap()
 
-
 ### World orthographic map centered on Sao Tome and Principe
 world <- orthomap(query = "Sao Tome and Principe")
-
 
 ### Class of the object returned
 class(world)
@@ -80,19 +77,15 @@ class(world)
 # attr(,"package")
 # [1] "sp"
 
-
 ### Number of polygons
 length(world)
 # [1] 833
 
-
 ### World map centered on the North Pole
 world <- orthomap(centre = c(90, 0))
 
-
 ### World map with customized graphical parameters
 world <- orthomap(centre = c(90, 0), mar = rep(0, 4), bg = "black")
-
 
 ### To customize other graphical parameters, see:
 ?par
@@ -101,4 +94,4 @@ world <- orthomap(centre = c(90, 0), mar = rep(0, 4), bg = "black")
 Acknowledgments
 --------
 
-The development of this function was inspired by the post of David on (Stack Overflow)[https://stackoverflow.com/questions/35911452/clipping-polygons-when-drawing-world-map-in-orthographic-projection]. Thank you David!
+The development of this function was inspired by the post of David on [Stack Overflow](https://stackoverflow.com/questions/35911452/clipping-polygons-when-drawing-world-map-in-orthographic-projection). Thank you David!
