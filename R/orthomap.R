@@ -1,20 +1,39 @@
-#' @title Create an orthographic World map
+#' @title Create a World map in orthographic projection
 #'
 #' @description
-#' ...
+#' This function corrects a bug (some polygons are not correctly projected) in
+#' the function \code{maps:map()} when it is used in orthographic projection. The
+#' function \code{orthomap()} also returns projected polygons in the
+#' \code{sp:SpatialPolygons} format.
 #'
-#' @param ...
+#' @param query The name of a country to center the map on.
+#' @param centre Latitude and longitude of the map center. Ignored if query is not null.
+#' @param border Color of polygons border.
+#' @param fill Color of polygons.
+#' @param grid If TRUE, grid (i.e. graticules) are added to the map.
+#' @param grid.color Color of the grid.
+#' @param grid.type Type of grid (see argument \code{lty}).
+#' @param grid.size Size of grid (see argument \code{lwd}).
 #'
 #' @export
 #'
-#' @return ...
-#'
-#' @details ...
+#' @return A \code{SpatialPolygons} of world countries in orthographic projection without aberrations.
 #'
 #' @seealso \code{\link[maps]{map}}
 #'
 #' @examples
-#' # ...
+#' ### Map centered on Sao Tome and Principe
+#' world <- orthomap(query = "Sao Tome and Principe")
+#'
+#' ### Class of the object returned
+#' class(world)
+#'
+#' ### Map centered on North Pole
+#' world <- orthomap(centre = c(90, 0))
+#'
+#' ### Map with user-defined graphical parameters
+#' world <- orthomap(centre = c(90, 0), mar = rep(0, 4), bg = "black")
+
 
 orthomap <- function(
   query      = NULL,
@@ -23,6 +42,8 @@ orthomap <- function(
   fill       = "#909090",
   grid       = TRUE,
   grid.color = "#969696",
+  grid.type  = 1,
+  grid.size  = 0.25
   ...
 ) {
 
@@ -103,19 +124,27 @@ orthomap <- function(
 
       # Project points "outside" the globe
 
-      temdist <- pmax(sqrt(rowSums(as.matrix(thispoly[ind, 1:2] ^ 2))), 1e-5)
-      thispoly[ind, 1 :2] <- thispoly[ind, 1:2] * (2 - temdist) / temdist
+      temdist <- pmax(sqrt(rowSums(as.matrix(thispoly[ind, 1:2]^2))), 0.00001)
+      thispoly[ind, 1:2] <- thispoly[ind, 1:2] * (2 - temdist) / temdist
 
       polylist[[i - 1]] <- sp::Polygons(list(sp::Polygon(thispoly[ , 1:2])), as.character(i - 2))
     }
   }
+
+
+  ### Delete outside polygons
 
   pos <- which(unlist(lapply(polylist, function(x) ifelse(is.null(x), 0, 1))) == 1)
 
   polylist <- polylist[pos]
   country  <- data.frame(
     country   = xy[[4]][pos],
-    row.names = unlist(lapply(polylist, function(x) x@ID))
+    row.names = unlist(
+      lapply(
+        polylist,
+        function(x) x@ID
+      )
+    )
   )
 
   world <- sp::SpatialPolygonsDataFrame(
@@ -151,21 +180,58 @@ orthomap <- function(
 
   ### Clip polygons with globe
 
-  world <- gBuffer(world, byid = TRUE, width = 0)
-  globe <- gBuffer(globe, byid = TRUE, width = 0)
-  world <- rgeos::gIntersection(world, globe, byid = TRUE, drop_lower_td = TRUE)
-  world <- sp::spChFIDs(obj = world, x = as.character(1:length(world)))
+  world <- rgeos::gBuffer( # To correct a bug in gIntersection
+    spgeom = world,
+    byid   = TRUE,
+    width  = 0
+  )
+
+  globe <- rgeos::gBuffer( # To correct a bug in gIntersection
+    spgeom = globe,
+    byid   = TRUE,
+    width  = 0
+  )
+
+  world <- rgeos::gIntersection(
+    spgeom1       = world,
+    spgeom2       = globe,
+    byid          = TRUE,
+    drop_lower_td = TRUE
+  )
+
+  world <- sp::spChFIDs(
+    obj = world,
+    x   = as.character(1:length(world))
+  )
 
 
-  ### Plotting
+  ### Plot world map in ortho
 
   par(...)
 
-  plot(world, col = fill, border = border)
+  plot(
+    world,
+    col    = fill,
+    border = border
+  )
 
   if (grid) {
-    plot(globe, col = "transparent", border = grid.color, lwd = 0.25, add = TRUE)
-    map.grid(labels = FALSE, lty = 1, col = grid.color, lwd = 0.25)
+
+    plot(
+      globe,
+      col    = "transparent",
+      border = grid.color,
+      lty    = grid.type,
+      lwd    = grid.size,
+      add    = TRUE
+    )
+
+    map.grid(
+      labels = FALSE,
+      col    = grid.color,
+      lty    = grid.type,
+      lwd    = grid.size
+    )
   }
 
   return(world)
