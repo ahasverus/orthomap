@@ -1,5 +1,5 @@
-orthomap
 <!-- orthomap <img src="orthomap-sticker.png" height="120" align="right"/> -->
+orthomap
 =========================================================
 
 [![Build Status](https://travis-ci.org/ahasverus/orthomap.svg?branch=master)](https://travis-ci.org/ahasverus/orthomap) [![](https://img.shields.io/badge/licence-GPLv3-8f10cb.svg)](http://www.gnu.org/licenses/gpl.html)
@@ -8,6 +8,9 @@ Overview
 --------
 
 The package **orthomap** contains only one function: `orthomap()`. It was designed to solve a common issue encountered when using the `map()` function of the [**maps**](http://cran.r-project.org/web/packages/maps/index.html) package in the orthographic projection: some polygons are not correctly projected and some geographical aberrations appear in the final map. Moreover, the `orthomap()` function returns projected World country polygons in the `SpatialPolygons` format.
+
+![Function `maps()`](img/figure-1.png)
+![Function `orthomap()`](img/figure-2.png)
 
 Installation
 --------
