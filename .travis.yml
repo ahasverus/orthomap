@@ -12,4 +12,7 @@ r_packages:
   - mapproj
   - rgeos
   - sp
-  # - rgdal
+  - rgdal
+
+before_install:
+  - sudo apt-get install --yes libproj-dev libgeos-dev libgdal-dev
