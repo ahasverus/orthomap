@@ -9,8 +9,7 @@ Overview
 
 The package **orthomap** contains only one function: `orthomap()`. It was designed to solve a common issue encountered when using the `map()` function of the [**maps**](http://cran.r-project.org/web/packages/maps/index.html) package in the orthographic projection: some polygons are not correctly projected and some geographical aberrations appear in the final map. Moreover, the `orthomap()` function returns projected World country polygons in the `SpatialPolygons` format.
 
-![Function `maps()`](img/figure-1.png)
-![Function `orthomap()`](img/figure-2.png)
+![figure-1](img/figure-1.png)
 
 Installation
 --------
