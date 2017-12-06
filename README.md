@@ -6,7 +6,7 @@ orthomap <img src="img/orthomap-sticker.png" height="120" align="right"/>
 Overview
 --------
 
-The package **orthomap** contains only one function: `orthomap()`. It was designed to solve a common issue encountered when using the `map()` function of the [**maps**](http://cran.r-project.org/web/packages/maps/index.html) package in the orthographic projection: some polygons are not correctly projected and some geographical aberrations appear in the final map. Moreover, the `orthomap()` function returns projected World country polygons in the `SpatialPolygons` format.
+The package **orthomap** contains one single function: `orthomap()`. It was designed to solve a common issue encountered when using the `map()` function of the [**maps**](http://cran.r-project.org/web/packages/maps/index.html) package in the orthographic projection: some polygons are not correctly projected and some geographical aberrations appear in the final map (see figure below and pay attention to Russia and Antarctica). Moreover, the `orthomap()` function returns projected World country polygons into the `SpatialPolygons` format.
 
 ![figure-1](img/figure-1.png)
 
@@ -29,7 +29,7 @@ Then install the **orthomap** package:
 ### Install the < orthomap > package from GitHub
 devtools::install_github("ahasverus/orthomap")
 
-### Load the < refR > package
+### Load the < orthomap > package
 library(orthomap)
 ```
 
@@ -65,11 +65,14 @@ world <- orthomap(
   grid.size  = 0.25
 )
 
+
 ### Short version
 world <- orthomap()
 
+
 ### World orthographic map centered on Sao Tome and Principe
 world <- orthomap(query = "Sao Tome and Principe")
+
 
 ### Class of the object returned
 class(world)
@@ -77,16 +80,25 @@ class(world)
 # attr(,"package")
 # [1] "sp"
 
+
 ### Number of polygons
 length(world)
 # [1] 833
 
+
 ### World map centered on the North Pole
 world <- orthomap(centre = c(90, 0))
+
 
 ### World map with customized graphical parameters
 world <- orthomap(centre = c(90, 0), mar = rep(0, 4), bg = "black")
 
+
 ### To customize other graphical parameters, see:
 ?par
 ```
+
+Acknowledgments
+--------
+
+The development of this function was inspired by the post of David on (Stack Overflow)[https://stackoverflow.com/questions/35911452/clipping-polygons-when-drawing-world-map-in-orthographic-projection]. Thank you David!
