@@ -172,7 +172,7 @@ world <- orthomap(query = "^france", globe = "#b3d0d1")
 
 Note that the argument `query` is case insensitive.
 
-So `query = "^france"` is equivalent to `query = "^France"` and to `query = "^FRANCE"`.
+So `r query = "^france"` is equivalent to `query = "^France"` and to `query = "^FRANCE"`.
 
 
 Acknowledgments
