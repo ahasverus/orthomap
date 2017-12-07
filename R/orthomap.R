@@ -203,7 +203,10 @@ orthomap <- function(
 
   par(...)
 
+  ooo <- options()$warn
+  options(warn = -1)
   maps::map("world", proj = "orthographic", orient = c(centre, 0), col = NA)
+  options(warn = ooo)
 
   sp::plot(
     world,
