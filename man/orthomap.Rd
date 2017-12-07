@@ -5,8 +5,8 @@
 \title{Create a World map in orthographic projection}
 \usage{
 orthomap(query = NULL, centre = c(0, 0), border = NA, fill = "#909090",
-  grid = TRUE, grid.color = "#969696", grid.type = 1, grid.size = 0.25,
-  ...)
+  globe = "transparent", grid = TRUE, nx = 10, ny = 10, grid.color = "#969696", grid.type = 1,
+  grid.size = 0.25, ...)
 }
 \arguments{
 \item{query}{The name of a country to center the map on.}
@@ -16,6 +16,8 @@ orthomap(query = NULL, centre = c(0, 0), border = NA, fill = "#909090",
 \item{border}{Color of polygons border.}
 
 \item{fill}{Color of polygons.}
+
+\item{globe}{Color of globe background.}
 
 \item{grid}{If TRUE, grid (i.e. graticules) are added to the map.}
 
@@ -28,6 +30,8 @@ orthomap(query = NULL, centre = c(0, 0), border = NA, fill = "#909090",
 \item{grid.type}{Type of grid (see argument \code{lty}).}
 
 \item{grid.size}{Size of grid (see argument \code{lwd}).}
+
+\item{...}{Other graphical parameters (see \code{par}).}
 }
 \value{
 A \code{SpatialPolygons} of world countries in orthographic projection without aberrations.

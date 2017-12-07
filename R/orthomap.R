@@ -10,12 +10,14 @@
 #' @param centre Latitude and longitude of the map center. Ignored if query is not null.
 #' @param border Color of polygons border.
 #' @param fill Color of polygons.
+#' @param globe Color of globe background.
 #' @param grid If TRUE, grid (i.e. graticules) are added to the map.
 #' @param nx Number of longitude lines.
 #' @param ny Number of latitude lines.
 #' @param grid.color Color of the grid.
 #' @param grid.type Type of grid (see argument \code{lty}).
 #' @param grid.size Size of grid (see argument \code{lwd}).
+#' @param ... Other graphical parameters (see \code{par}).
 #'
 #' @export
 #'
@@ -32,6 +34,7 @@ orthomap <- function(
   centre     = c(0, 0),
   border     = NA,
   fill       = "#909090",
+  globe      = "transparent",
   grid       = TRUE,
   nx         = 10,
   ny         = 10,
@@ -56,6 +59,9 @@ orthomap <- function(
     world  <- maps::map(region = query, plot = FALSE)
     centre <- c(mean(na.omit(world$y)), mean(na.omit(world$x)))
   }
+
+
+  globe.col <- globe
 
 
   ### Get World country polygons coordinates (and labels)
@@ -209,9 +215,19 @@ orthomap <- function(
   options(warn = ooo)
 
   sp::plot(
+    globe,
+    col    = globe.col,
+    border = grid.color,
+    lty    = grid.type,
+    lwd    = grid.size,
+    add    = TRUE
+  )
+
+  sp::plot(
     world,
     col    = fill,
-    border = border
+    border = border,
+    add    = TRUE
   )
 
   if (grid) {
