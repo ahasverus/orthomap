@@ -170,6 +170,8 @@ world <- orthomap(query = "^france", globe = "#b3d0d1")
 
 ![figure-6](img/figure-6.png)
 
+Note that the argument `query` is case insensitive. So `query = ^france` is equivalent to `query = ^France` and to `query = ^FRANCE`.
+
 
 Acknowledgments
 --------
