@@ -49,7 +49,7 @@ help(package = "orthomap")
 help(orthomap)
 ```
 
-Usage and workflow
+Usage
 --------
 
 ```r
@@ -86,7 +86,7 @@ length(world)
 ```
 
 ```r
-### World map centered on the South Pole without grid
+### World map centered on the South Pole
 world <- orthomap(query = "South Georgia")
 ```
 
