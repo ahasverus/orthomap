@@ -58,6 +58,8 @@ world <- orthomap(
   query      = NULL,
   centre     = c(0, 0),
   border     = NA,
+  nx         = 10,
+  ny         = 10,
   fill       = "#909090",
   grid       = TRUE,
   grid.color = "#969696",

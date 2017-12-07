@@ -11,6 +11,8 @@
 #' @param border Color of polygons border.
 #' @param fill Color of polygons.
 #' @param grid If TRUE, grid (i.e. graticules) are added to the map.
+#' @param nx Number of longitude lines.
+#' @param ny Number of latitude lines.
 #' @param grid.color Color of the grid.
 #' @param grid.type Type of grid (see argument \code{lty}).
 #' @param grid.size Size of grid (see argument \code{lwd}).
@@ -31,6 +33,8 @@ orthomap <- function(
   border     = NA,
   fill       = "#909090",
   grid       = TRUE,
+  nx         = 10,
+  ny         = 10,
   grid.color = "#969696",
   grid.type  = 1,
   grid.size  = 0.25,
@@ -199,7 +203,9 @@ orthomap <- function(
 
   par(...)
 
-  plot(
+  maps::map("world", proj = "orthographic", orient = c(centre, 0), col = NA)
+
+  sp::plot(
     world,
     col    = fill,
     border = border
@@ -207,7 +213,7 @@ orthomap <- function(
 
   if (grid) {
 
-    plot(
+    sp::plot(
       globe,
       col    = "transparent",
       border = grid.color,
@@ -216,7 +222,9 @@ orthomap <- function(
       add    = TRUE
     )
 
-    map.grid(
+    mapproj::map.grid(
+      nx     = nx,
+      ny     = ny,
       labels = FALSE,
       col    = grid.color,
       lty    = grid.type,

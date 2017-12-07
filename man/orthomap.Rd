@@ -19,6 +19,10 @@ orthomap(query = NULL, centre = c(0, 0), border = NA, fill = "#909090",
 
 \item{grid}{If TRUE, grid (i.e. graticules) are added to the map.}
 
+\item{nx}{Number of longitude lines.}
+
+\item{ny}{Number of latitude lines.}
+
 \item{grid.color}{Color of the grid.}
 
 \item{grid.type}{Type of grid (see argument \code{lty}).}
