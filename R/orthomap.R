@@ -8,7 +8,9 @@
 #'
 #' @param query The name of a country to center the map on.
 #' @param centre Latitude and longitude of the map center. Ignored if query is not null.
-#' @param border Color of polygons border.
+#' @param border.color Color of polygons border.
+#' @param border.type Type of polygons border line (see argument \code{lty}).
+#' @param border.size Size of polygons border line (see argument \code{lwd}).
 #' @param fill Color of polygons.
 #' @param globe Color of globe background.
 #' @param grid If TRUE, grid (i.e. graticules) are added to the map.
@@ -30,9 +32,11 @@
 
 
 orthomap <- function(
-  query      = NULL,
-  centre     = c(0, 0),
-  border     = NA,
+  query        = NULL,
+  centre       = c(0, 0),
+  border.color = NA,
+  border.type  = 1,
+  border.size  = 0.25,
   fill       = "#909090",
   globe      = "transparent",
   grid       = TRUE,
@@ -226,7 +230,9 @@ orthomap <- function(
   sp::plot(
     world,
     col    = fill,
-    border = border,
+    border = border.color,
+    lty    = border.type,
+    lwd    = border.size,
     add    = TRUE
   )
 

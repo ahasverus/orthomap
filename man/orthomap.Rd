@@ -4,16 +4,21 @@
 \alias{orthomap}
 \title{Create a World map in orthographic projection}
 \usage{
-orthomap(query = NULL, centre = c(0, 0), border = NA, fill = "#909090",
-  globe = "transparent", grid = TRUE, nx = 10, ny = 10, grid.color = "#969696", grid.type = 1,
-  grid.size = 0.25, ...)
+orthomap(query = NULL, centre = c(0, 0), border.color = NA, border.type  = 1,
+  border.size  = 0.25, fill = "#909090", globe = "transparent", grid = TRUE,
+  nx = 10, ny = 10, grid.color = "#969696", grid.type = 1, grid.size = 0.25,
+  ...)
 }
 \arguments{
 \item{query}{The name of a country to center the map on.}
 
 \item{centre}{Latitude and longitude of the map center. Ignored if query is not null.}
 
-\item{border}{Color of polygons border.}
+\item{border.color}{Color of polygons border.}
+
+\item{border.type}{Type of polygons border line (see argument \code{lty}).}
+
+\item{border.size}{Size of polygons border line (see argument \code{lwd}).}
 
 \item{fill}{Color of polygons.}
 
