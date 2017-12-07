@@ -153,7 +153,7 @@ countries[grep("france", tolower(countries))]
 # [3] "France"                  "Greenland:Ile de France"
 ```
 
-Here, just the three first elements correspond to the country France.
+Here, just the first three elements correspond to the country France.
 
 ```r
 ### Select items starting with the string < France >
@@ -161,10 +161,10 @@ countries[grep("^france", tolower(countries))]
 # [1] "France:Corsica"      "France:Ile d'Oleron" "France"
 ```
 
-So to center map on metropolitan France:
+So to center the map on metropolitan France:
 
 ```r
-### Center map on France
+### Center map on metropolitan France
 world <- orthomap(query = "^france", globe = "#b3d0d1")
 ```
 
