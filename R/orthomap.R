@@ -22,7 +22,7 @@
 #' @seealso \code{\link[maps]{map}}
 #'
 #' @examples
-#' See: https://github.com/ahasverus/orthomap
+#' # See: https://github.com/ahasverus/orthomap
 
 
 orthomap <- function(

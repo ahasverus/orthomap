@@ -35,18 +35,7 @@ function \code{orthomap()} also returns projected polygons in the
 \code{sp:SpatialPolygons} format.
 }
 \examples{
-### Map centered on Sao Tome and Principe
-world <- orthomap(query = "Sao Tome and Principe")
-
-### Class of the object returned
-class(world)
-
-### Map centered on North Pole
-world <- orthomap(centre = c(90, 0))
-
-### Map with user-defined graphical parameters
-world <- orthomap(centre = c(90, 0), mar = rep(0, 4), bg = "black")
-}
+# See: https://github.com/ahasverus/orthomap
 \seealso{
 \code{\link[maps]{map}}
 }
