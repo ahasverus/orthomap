@@ -56,7 +56,7 @@ world <- orthomap()
 
 class(world)
 length(world)
-plot(world)
+sp::plot(world)
 
 # Center map based on country name
 world <- orthomap(query = "France")
