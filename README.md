@@ -74,9 +74,6 @@ world <- orthomap()
 ![figure-2](img/figure-2.png)
 
 ```r
-### World orthographic map centered on Sao Tome and Principe
-world <- orthomap(query = "Sao Tome and Principe")
-
 ### Class of the object returned
 class(world)
 # [1] "SpatialPolygons"
@@ -85,24 +82,30 @@ class(world)
 
 ### Number of polygons
 length(world)
-# [1] 833
+# [1] 816
+```
+
+```r
+### World map centered on the South Pole without grid
+world <- orthomap(query = "South Georgia")
 ```
 
 ![figure-3](img/figure-3.png)
 
 ```r
-### World map centered on the South Pole without grid
-world <- orthomap(query = "South Georgia", grid = FALSE)
+### World map with customized graphical parameters
+world <- orthomap(
+  centre     = c(20, 60),
+  fill       = c("#0868ac", "#016c59", "#b30000", "#ae017e", "#bf812d"),
+  nx         = 20,
+  ny         = 20,
+  grid.color = "#c2c2c2",
+  mar        = rep(0, 4),
+  bg         = "#aaaaaa"
+)
 ```
 
 ![figure-4](img/figure-4.png)
-
-```r
-### World map with customized graphical parameters
-world <- orthomap(centre = c(10, -65), mar = rep(0, 4), bg = "black")
-```
-
-![figure-5](img/figure-5.png)
 
 ```r
 ### To customize other graphical parameters, see:
