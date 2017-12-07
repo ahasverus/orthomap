@@ -125,6 +125,52 @@ world <- orthomap(
 ?par
 ```
 
+Tricks and tips
+--------
+
+**How to get the correct spelling of countries?**
+
+```r
+### Get available countries names
+countries <- maps::map("world", plot = FALSE)$names
+
+length(countries)
+# [1] 1627
+
+countries[1:8]
+# [1] "Aruba"                        "Afghanistan"
+# [3] "Angola"                       "Angola:Cabinda"
+# [5] "Anguilla"                     "Albania"
+# [7] "Finland:Aland Islands:Foglo"  "Finland:Aland Islands:Eckero"
+```
+
+Let's take an example with France.
+
+```r
+### Get all countries containing the string < France >
+countries[grep("france", tolower(countries))]
+# [1] "France:Corsica"          "France:Ile d'Oleron"
+# [3] "France"                  "Greenland:Ile de France"
+```
+
+Here, just the three first elements correspond to the country France.
+
+```r
+### Select items starting with the string < France >
+countries[grep("^france", tolower(countries))]
+# [1] "France:Corsica"      "France:Ile d'Oleron" "France"
+```
+
+So to center map on metropolitan France:
+
+```r
+### Center map on France
+world <- orthomap(query = "^france", globe = "#b3d0d1")
+```
+
+![figure-6](img/figure-6.png)
+
+
 Acknowledgments
 --------
 
