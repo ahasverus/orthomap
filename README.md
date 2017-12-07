@@ -55,16 +55,19 @@ Usage
 ```r
 ### World orthographic map with default settings
 world <- orthomap(
-  query      = NULL,
-  centre     = c(0, 0),
-  border     = NA,
-  nx         = 10,
-  ny         = 10,
-  fill       = "#909090",
-  grid       = TRUE,
-  grid.color = "#969696",
-  grid.type  = 1,
-  grid.size  = 0.25
+  query        = NULL,
+  centre       = c(0, 0),
+  border.color = NA,
+  border.type  = 1,
+  border.size  = 0.25,
+  fill         = "#909090",
+  globe        = "transparent",
+  grid         = TRUE,
+  nx           = 10,
+  ny           = 10,
+  grid.color   = "#969696",
+  grid.type    = 1,
+  grid.size    = 0.25
 )
 
 ### Short version
@@ -86,26 +89,36 @@ length(world)
 ```
 
 ```r
-### World map centered on the South Pole
+### Center World map based on country name
 world <- orthomap(query = "South Georgia")
 ```
 
 ![figure-3](img/figure-3.png)
 
 ```r
-### World map with customized graphical parameters
-world <- orthomap(
-  centre     = c(20, 60),
-  fill       = c("#0868ac", "#016c59", "#b30000", "#ae017e", "#bf812d"),
-  nx         = 20,
-  ny         = 20,
-  grid.color = "#c2c2c2",
-  mar        = rep(0, 4),
-  bg         = "#aaaaaa"
-)
+### Center World map based on coordinates
+world <- orthomap(centre = c(20, 60))
 ```
 
 ![figure-4](img/figure-4.png)
+
+```r
+### World map with customized graphical parameters
+world <- orthomap(
+  centre       = c(20, 60),
+  border.color = "#bbbbbb",
+  border.size  = 0.15,
+  fill         = c("#0868ac", "#016c59", "#b30000", "#ae017e", "#bf812d"),
+  globe        = "#b3d0d1",
+  nx           = 20,
+  ny           = 20,
+  grid.color   = "#c2c2c2",
+  mar          = rep(0, 4),
+  bg           = "#999999"
+)
+```
+
+![figure-5](img/figure-5.png)
 
 ```r
 ### To customize other graphical parameters, see:
