@@ -28,7 +28,37 @@
 #' @seealso \code{\link[maps]{map}}
 #'
 #' @examples
-#' # See: https://github.com/ahasverus/orthomap
+#' # Default settings
+#' world <- orthomap()
+#'
+#' class(world)
+#' length(world)
+#' plot(world)
+#'
+#' # Center map based on country name
+#' world <- orthomap(query = "France")
+#'
+#' # Center map based on coordinates
+#' world <- orthomap(centre = c(45, 125))
+#'
+#' # Customize map
+#' world <- orthomap(
+#'   centre       = c(45, 125),
+#'   border.color = "#dddddd",
+#'   border.type  = 1,
+#'   border.size  = 0.25,
+#'   fill         = c("#0868ac", "#016c59", "#b30000"),
+#'   globe        = "#b3d0d1",
+#'   grid         = TRUE,
+#'   nx           = 20,
+#'   ny           = 20,
+#'   grid.color   = "#969696",
+#'   grid.type    = 1,
+#'   grid.size    = 0.25,
+#'   mar          = rep(0, 4),
+#'   bg           = "#dddddd"
+#')
+
 
 
 orthomap <- function(
