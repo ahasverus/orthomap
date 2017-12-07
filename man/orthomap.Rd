@@ -34,8 +34,9 @@ the function \code{maps:map()} when it is used in orthographic projection. The
 function \code{orthomap()} also returns projected polygons in the
 \code{sp:SpatialPolygons} format.
 }
-\examples{
-# See: https://github.com/ahasverus/orthomap
 \seealso{
 \code{\link[maps]{map}}
+}
+\examples{
+# See: https://github.com/ahasverus/orthomap
 }
