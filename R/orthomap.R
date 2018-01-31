@@ -133,7 +133,7 @@ orthomap <- function(
 
   ### Find polygons delimitation
 
-  naloc <- (1 : nrow(coord))[!complete.cases(coord)]
+  naloc <- (1L:nrow(coord))[!complete.cases(coord)]
   naloc <- c(0, naloc, nrow(coord) + 1)
 
 
@@ -143,7 +143,7 @@ orthomap <- function(
 
   for (i in 2:length(naloc)) {
 
-    thispoly <- coord[(naloc[i - 1] + 1):(naloc[i] - 1), 3:5, drop = FALSE]
+    thispoly <- coord[(naloc[i - 1] + 1):(naloc[i] - 1), 3L:5L, drop = FALSE]
     thispoly <- rbind(thispoly, thispoly[1L, ])
     unq      <- unique(thispoly[ , 3L])
 
@@ -151,7 +151,7 @@ orthomap <- function(
 
       if (unq == 1) { # Polygon is fully on front side
 
-        polylist[[i - 1]] <- sp::Polygons(list(sp::Polygon(thispoly[ , 1:2])), as.character(i - 2))
+        polylist[[i - 1]] <- sp::Polygons(list(sp::Polygon(thispoly[ , 1L:2L])), as.character(i - 2))
       }
 
     } else { # Polygon is on front and back sides
@@ -160,7 +160,7 @@ orthomap <- function(
 
       # Project points "outside" the globe
 
-      temdist <- pmax(sqrt(rowSums(as.matrix(thispoly[ind, 1:2]^2))), 0.00001)
+      temdist <- pmax(sqrt(rowSums(as.matrix(thispoly[ind, 1L:2L]^2))), 0.00001)
       thispoly[ind, 1L:2L] <- thispoly[ind, 1L:2L] * (2 - temdist) / temdist
 
       polylist[[i - 1]] <- sp::Polygons(list(sp::Polygon(thispoly[ , 1L:2L])), as.character(i - 2))
@@ -186,7 +186,7 @@ orthomap <- function(
   world <- sp::SpatialPolygonsDataFrame(
     Sr   = sp::SpatialPolygons(
       Srl         = polylist,
-      proj4string = sp::CRS(paste0("+proj=ortho +lat_0=", centre[1], " +lon_0=", centre[2]))
+      proj4string = sp::CRS(paste0("+proj=ortho +lat_0=", centre[1L], " +lon_0=", centre[2L]))
     ),
     data = country
   )
@@ -237,7 +237,7 @@ orthomap <- function(
 
   world <- sp::spChFIDs(
     obj = world,
-    x   = as.character(1:length(world))
+    x   = as.character(1L:length(world))
   )
 
 
@@ -289,5 +289,5 @@ orthomap <- function(
     )
   }
 
-  world
+  invisible(world)
 }
