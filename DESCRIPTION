@@ -1,6 +1,6 @@
 Package: orthomap
 Title: An R package to plot World in orthographic projection without aberrations
-Version: 1.0
+Version: 1.0.0
 Date: 2017-12-06
 Authors@R: person("Nicolas", "Casajus", email = "nicolas.casajus@gmail.com", role = c("aut", "cre"))
 Description:

@@ -18,8 +18,10 @@
 #' @param ny Number of latitude lines.
 #' @param grid.color Color of the grid.
 #' @param grid.type Type of grid (see argument \code{lty}).
-#' @param grid.size Size of grid (see argument \code{lwd}).
-#' @param ... Other graphical parameters (see \code{par}).
+#' @param grid.size Line width of the grid (see argument \code{lwd}).
+#' @param ... Additional graphical parameters (see \code{par}).
+#'
+#' @importFrom stats complete.cases na.omit 
 #'
 #' @export
 #'
@@ -117,10 +119,10 @@ orthomap <- function(
   ### Project coordinates in orthographic
 
   d2r     <- pi / 180
-  lat     <- coord[ , 2] * d2r
-  long    <- coord[ , 1] * d2r
-  cenlat  <- centre[1] * d2r
-  cenlong <- centre[2] * d2r
+  lat     <- coord[ , 2L] * d2r
+  long    <- coord[ , 1L] * d2r
+  cenlat  <- centre[1L] * d2r
+  cenlong <- centre[2L] * d2r
 
   x     <- cos(lat) * sin(long - cenlong)
   y     <- cos(cenlat) * sin(lat) - sin(cenlat) * cos(lat) * cos(long - cenlong)
@@ -142,8 +144,8 @@ orthomap <- function(
   for (i in 2:length(naloc)) {
 
     thispoly <- coord[(naloc[i - 1] + 1):(naloc[i] - 1), 3:5, drop = FALSE]
-    thispoly <- rbind(thispoly, thispoly[1, ])
-    unq      <- unique(thispoly[ , 3])
+    thispoly <- rbind(thispoly, thispoly[1L, ])
+    unq      <- unique(thispoly[ , 3L])
 
     if (length(unq) == 1){
 
@@ -154,7 +156,7 @@ orthomap <- function(
 
     } else { # Polygon is on front and back sides
 
-      ind <- thispoly[ , 3] == 0
+      ind <- thispoly[ , 3L] == 0
 
       # Project points "outside" the globe
 
@@ -172,7 +174,7 @@ orthomap <- function(
 
   polylist <- polylist[pos]
   country  <- data.frame(
-    country   = xy[[4]][pos],
+    country   = xy[[4L]][pos],
     row.names = unlist(
       lapply(
         polylist,
@@ -241,7 +243,7 @@ orthomap <- function(
 
   ### Plot world map in ortho
 
-  par(...)
+  graphics::par(...)
 
   ooo <- options()$warn
   options(warn = -1)
