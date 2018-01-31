@@ -7,7 +7,7 @@
 #' \code{sp:SpatialPolygons} format.
 #'
 #' @param query The name of a country to center the map on.
-#' @param centre Latitude and longitude of the map center. Ignored if query is not null.
+#' @param centre Latitude and longitude of the map center. Ignored if query is not \code{NULL}.
 #' @param border.color Color of polygons border.
 #' @param border.type Type of polygons border line (see argument \code{lty}).
 #' @param border.size Size of polygons border line (see argument \code{lwd}).
@@ -18,8 +18,10 @@
 #' @param ny Number of latitude lines.
 #' @param grid.color Color of the grid.
 #' @param grid.type Type of grid (see argument \code{lty}).
-#' @param grid.size Size of grid (see argument \code{lwd}).
-#' @param ... Other graphical parameters (see \code{par}).
+#' @param grid.size Line width of the grid (see argument \code{lwd}).
+#' @param ... Additional graphical parameters (see \code{par}).
+#'
+#' @importFrom stats complete.cases na.omit
 #'
 #' @export
 #'
@@ -117,10 +119,10 @@ orthomap <- function(
   ### Project coordinates in orthographic
 
   d2r     <- pi / 180
-  lat     <- coord[ , 2] * d2r
-  long    <- coord[ , 1] * d2r
-  cenlat  <- centre[1] * d2r
-  cenlong <- centre[2] * d2r
+  lat     <- coord[ , 2L] * d2r
+  long    <- coord[ , 1L] * d2r
+  cenlat  <- centre[1L] * d2r
+  cenlong <- centre[2L] * d2r
 
   x     <- cos(lat) * sin(long - cenlong)
   y     <- cos(cenlat) * sin(lat) - sin(cenlat) * cos(lat) * cos(long - cenlong)
@@ -131,7 +133,7 @@ orthomap <- function(
 
   ### Find polygons delimitation
 
-  naloc <- (1 : nrow(coord))[!complete.cases(coord)]
+  naloc <- (1L:nrow(coord))[!complete.cases(coord)]
   naloc <- c(0, naloc, nrow(coord) + 1)
 
 
@@ -141,27 +143,27 @@ orthomap <- function(
 
   for (i in 2:length(naloc)) {
 
-    thispoly <- coord[(naloc[i - 1] + 1):(naloc[i] - 1), 3:5, drop = FALSE]
-    thispoly <- rbind(thispoly, thispoly[1, ])
-    unq      <- unique(thispoly[ , 3])
+    thispoly <- coord[(naloc[i - 1] + 1):(naloc[i] - 1), 3L:5L, drop = FALSE]
+    thispoly <- rbind(thispoly, thispoly[1L, ])
+    unq      <- unique(thispoly[ , 3L])
 
     if (length(unq) == 1){
 
       if (unq == 1) { # Polygon is fully on front side
 
-        polylist[[i - 1]] <- sp::Polygons(list(sp::Polygon(thispoly[ , 1:2])), as.character(i - 2))
+        polylist[[i - 1]] <- sp::Polygons(list(sp::Polygon(thispoly[ , 1L:2L])), as.character(i - 2))
       }
 
     } else { # Polygon is on front and back sides
 
-      ind <- thispoly[ , 3] == 0
+      ind <- thispoly[ , 3L] == 0
 
       # Project points "outside" the globe
 
-      temdist <- pmax(sqrt(rowSums(as.matrix(thispoly[ind, 1:2]^2))), 0.00001)
-      thispoly[ind, 1:2] <- thispoly[ind, 1:2] * (2 - temdist) / temdist
+      temdist <- pmax(sqrt(rowSums(as.matrix(thispoly[ind, 1L:2L]^2))), 0.00001)
+      thispoly[ind, 1L:2L] <- thispoly[ind, 1L:2L] * (2 - temdist) / temdist
 
-      polylist[[i - 1]] <- sp::Polygons(list(sp::Polygon(thispoly[ , 1:2])), as.character(i - 2))
+      polylist[[i - 1]] <- sp::Polygons(list(sp::Polygon(thispoly[ , 1L:2L])), as.character(i - 2))
     }
   }
 
@@ -172,7 +174,7 @@ orthomap <- function(
 
   polylist <- polylist[pos]
   country  <- data.frame(
-    country   = xy[[4]][pos],
+    country   = xy[[4L]][pos],
     row.names = unlist(
       lapply(
         polylist,
@@ -184,7 +186,7 @@ orthomap <- function(
   world <- sp::SpatialPolygonsDataFrame(
     Sr   = sp::SpatialPolygons(
       Srl         = polylist,
-      proj4string = sp::CRS(paste0("+proj=ortho +lat_0=", centre[1], " +lon_0=", centre[2]))
+      proj4string = sp::CRS(paste0("+proj=ortho +lat_0=", centre[1L], " +lon_0=", centre[2L]))
     ),
     data = country
   )
@@ -208,7 +210,7 @@ orthomap <- function(
         ID  = "0"
       )
     ),
-    proj4string = sp::CRS(paste0("+proj=ortho +lat_0=", centre[1], " +lon_0=", centre[2]))
+    proj4string = sp::CRS(paste0("+proj=ortho +lat_0=", centre[1L], " +lon_0=", centre[2L]))
   )
 
 
@@ -235,13 +237,13 @@ orthomap <- function(
 
   world <- sp::spChFIDs(
     obj = world,
-    x   = as.character(1:length(world))
+    x   = as.character(1L:length(world))
   )
 
 
   ### Plot world map in ortho
 
-  par(...)
+  graphics::par(...)
 
   ooo <- options()$warn
   options(warn = -1)
@@ -287,5 +289,5 @@ orthomap <- function(
     )
   }
 
-  return(world)
+  invisible(world)
 }

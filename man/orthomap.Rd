@@ -4,15 +4,15 @@
 \alias{orthomap}
 \title{Create a World map in orthographic projection}
 \usage{
-orthomap(query = NULL, centre = c(0, 0), border.color = NA, border.type  = 1,
-  border.size  = 0.25, fill = "#909090", globe = "transparent", grid = TRUE,
-  nx = 10, ny = 10, grid.color = "#969696", grid.type = 1, grid.size = 0.25,
-  ...)
+orthomap(query = NULL, centre = c(0, 0), border.color = NA,
+  border.type = 1, border.size = 0.25, fill = "#909090",
+  globe = "transparent", grid = TRUE, nx = 10, ny = 10,
+  grid.color = "#969696", grid.type = 1, grid.size = 0.25, ...)
 }
 \arguments{
 \item{query}{The name of a country to center the map on.}
 
-\item{centre}{Latitude and longitude of the map center. Ignored if query is not null.}
+\item{centre}{Latitude and longitude of the map center. Ignored if query is not \code{NULL}.}
 
 \item{border.color}{Color of polygons border.}
 
@@ -34,9 +34,9 @@ orthomap(query = NULL, centre = c(0, 0), border.color = NA, border.type  = 1,
 
 \item{grid.type}{Type of grid (see argument \code{lty}).}
 
-\item{grid.size}{Size of grid (see argument \code{lwd}).}
+\item{grid.size}{Line width of the grid (see argument \code{lwd}).}
 
-\item{...}{Other graphical parameters (see \code{par}).}
+\item{...}{Additional graphical parameters (see \code{par}).}
 }
 \value{
 A \code{SpatialPolygons} of world countries in orthographic projection without aberrations.
@@ -46,9 +46,6 @@ This function corrects a bug (some polygons are not correctly projected) in
 the function \code{maps:map()} when it is used in orthographic projection. The
 function \code{orthomap()} also returns projected polygons in the
 \code{sp:SpatialPolygons} format.
-}
-\seealso{
-\code{\link[maps]{map}}
 }
 \examples{
 # Default settings
@@ -81,4 +78,7 @@ world <- orthomap(
   mar          = rep(0, 4),
   bg           = "#dddddd"
 )
+}
+\seealso{
+\code{\link[maps]{map}}
 }

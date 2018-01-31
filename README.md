@@ -1,4 +1,4 @@
-orthomap <img src="img/orthomap-sticker.png" height="120" align="right"/>
+orthomap <img src="inst/img/orthomap-sticker.png" height="120" align="right"/>
 =========================================================
 
 [![Build Status](https://travis-ci.org/ahasverus/orthomap.svg?branch=master)](https://travis-ci.org/ahasverus/orthomap) [![](https://img.shields.io/badge/licence-GPLv3-8f10cb.svg)](http://www.gnu.org/licenses/gpl.html)
@@ -8,7 +8,7 @@ Overview
 
 The package **orthomap** contains one single function: `orthomap()`. It was designed to solve a common issue encountered when using the `map()` function of the [**maps**](http://cran.r-project.org/web/packages/maps/index.html) package in the orthographic projection: some polygons are not correctly projected and some geographical aberrations appear in the final map (see figure below and pay attention to Russia and Antarctica). Moreover, the `orthomap()` function returns projected World country polygons into the `SpatialPolygons` format.
 
-![figure-1](img/figure-1.png)
+![figure-1](inst/img/figure-1.png)
 
 Installation
 --------
@@ -74,7 +74,7 @@ world <- orthomap(
 world <- orthomap()
 ```
 
-![figure-2](img/figure-2.png)
+![figure-2](inst/img/figure-2.png)
 
 ```r
 ### Class of the object returned
@@ -93,14 +93,14 @@ length(world)
 world <- orthomap(query = "South Georgia")
 ```
 
-![figure-3](img/figure-3.png)
+![figure-3](inst/img/figure-3.png)
 
 ```r
 ### Center World map based on coordinates
 world <- orthomap(centre = c(20, 60))
 ```
 
-![figure-4](img/figure-4.png)
+![figure-4](inst/img/figure-4.png)
 
 ```r
 ### World map with customized graphical parameters
@@ -118,7 +118,7 @@ world <- orthomap(
 )
 ```
 
-![figure-5](img/figure-5.png)
+![figure-5](inst/img/figure-5.png)
 
 ```r
 ### To customize other graphical parameters, see:
@@ -168,7 +168,7 @@ So to center the map on metropolitan France:
 world <- orthomap(query = "^france", globe = "#b3d0d1")
 ```
 
-![figure-6](img/figure-6.png)
+![figure-6](inst/img/figure-6.png)
 
 Note that the argument `query` is case insensitive.
 
