@@ -7,7 +7,7 @@
 #' \code{sp:SpatialPolygons} format.
 #'
 #' @param query The name of a country to center the map on.
-#' @param centre Latitude and longitude of the map center. Ignored if query is not null.
+#' @param centre Latitude and longitude of the map center. Ignored if query is not \code{NULL}.
 #' @param border.color Color of polygons border.
 #' @param border.type Type of polygons border line (see argument \code{lty}).
 #' @param border.size Size of polygons border line (see argument \code{lwd}).
@@ -21,7 +21,7 @@
 #' @param grid.size Line width of the grid (see argument \code{lwd}).
 #' @param ... Additional graphical parameters (see \code{par}).
 #'
-#' @importFrom stats complete.cases na.omit 
+#' @importFrom stats complete.cases na.omit
 #'
 #' @export
 #'
@@ -161,9 +161,9 @@ orthomap <- function(
       # Project points "outside" the globe
 
       temdist <- pmax(sqrt(rowSums(as.matrix(thispoly[ind, 1:2]^2))), 0.00001)
-      thispoly[ind, 1:2] <- thispoly[ind, 1:2] * (2 - temdist) / temdist
+      thispoly[ind, 1L:2L] <- thispoly[ind, 1L:2L] * (2 - temdist) / temdist
 
-      polylist[[i - 1]] <- sp::Polygons(list(sp::Polygon(thispoly[ , 1:2])), as.character(i - 2))
+      polylist[[i - 1]] <- sp::Polygons(list(sp::Polygon(thispoly[ , 1L:2L])), as.character(i - 2))
     }
   }
 
@@ -210,7 +210,7 @@ orthomap <- function(
         ID  = "0"
       )
     ),
-    proj4string = sp::CRS(paste0("+proj=ortho +lat_0=", centre[1], " +lon_0=", centre[2]))
+    proj4string = sp::CRS(paste0("+proj=ortho +lat_0=", centre[1L], " +lon_0=", centre[2L]))
   )
 
 
@@ -289,5 +289,5 @@ orthomap <- function(
     )
   }
 
-  return(world)
+  world
 }

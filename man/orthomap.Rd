@@ -12,7 +12,7 @@ orthomap(query = NULL, centre = c(0, 0), border.color = NA,
 \arguments{
 \item{query}{The name of a country to center the map on.}
 
-\item{centre}{Latitude and longitude of the map center. Ignored if query is not null.}
+\item{centre}{Latitude and longitude of the map center. Ignored if query is not \code{NULL}.}
 
 \item{border.color}{Color of polygons border.}
 
