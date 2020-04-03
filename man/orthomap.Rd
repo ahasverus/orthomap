@@ -4,15 +4,30 @@
 \alias{orthomap}
 \title{Create a World map in orthographic projection}
 \usage{
-orthomap(query = NULL, centre = c(0, 0), border.color = NA,
-  border.type = 1, border.size = 0.25, fill = "#909090",
-  globe = "transparent", grid = TRUE, nx = 10, ny = 10,
-  grid.color = "#969696", grid.type = 1, grid.size = 0.25, ...)
+orthomap(
+  query = NULL,
+  centre = c(0, 0),
+  plot = TRUE,
+  border.color = NA,
+  border.type = 1,
+  border.size = 0.25,
+  fill = "#909090",
+  globe = "transparent",
+  grid = TRUE,
+  nx = 10,
+  ny = 10,
+  grid.color = "#969696",
+  grid.type = 1,
+  grid.size = 0.25,
+  ...
+)
 }
 \arguments{
 \item{query}{The name of a country to center the map on.}
 
 \item{centre}{Latitude and longitude of the map center. Ignored if query is not \code{NULL}.}
+
+\item{plot}{If TRUE, the map is plotted.}
 
 \item{border.color}{Color of polygons border.}
 
@@ -50,6 +65,8 @@ function \code{orthomap()} also returns projected polygons in the
 \examples{
 # Default settings
 world <- orthomap()
+# Create the map but don't plot it
+world <- orthomap(plot = FALSE)
 
 class(world)
 length(world)
