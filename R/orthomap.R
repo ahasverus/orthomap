@@ -8,6 +8,7 @@
 #'
 #' @param query The name of a country to center the map on.
 #' @param centre Latitude and longitude of the map center. Ignored if query is not \code{NULL}.
+#' @param plot If TRUE, the map is plotted.
 #' @param border.color Color of polygons border.
 #' @param border.type Type of polygons border line (see argument \code{lty}).
 #' @param border.size Size of polygons border line (see argument \code{lwd}).
@@ -32,6 +33,8 @@
 #' @examples
 #' # Default settings
 #' world <- orthomap()
+#' # Create the map but don't plot it
+#' world <- orthomap(plot = FALSE)
 #'
 #' class(world)
 #' length(world)
@@ -66,6 +69,7 @@
 orthomap <- function(
   query        = NULL,
   centre       = c(0, 0),
+  plot         = TRUE,
   border.color = NA,
   border.type  = 1,
   border.size  = 0.25,
@@ -133,7 +137,7 @@ orthomap <- function(
 
   ### Find polygons delimitation
 
-  naloc <- (1L:nrow(coord))[!complete.cases(coord)]
+  naloc <- seq_len(nrow(coord))[!complete.cases(coord)]
   naloc <- c(0, naloc, nrow(coord) + 1)
 
 
@@ -242,51 +246,52 @@ orthomap <- function(
 
 
   ### Plot world map in ortho
+  if (plot) {
+    graphics::par(...)
 
-  graphics::par(...)
-
-  ooo <- options()$warn
-  options(warn = -1)
-  maps::map("world", proj = "orthographic", orient = c(centre, 0), col = NA)
-  options(warn = ooo)
-
-  sp::plot(
-    globe,
-    col    = globe.col,
-    border = grid.color,
-    lty    = grid.type,
-    lwd    = grid.size,
-    add    = TRUE
-  )
-
-  sp::plot(
-    world,
-    col    = fill,
-    border = border.color,
-    lty    = border.type,
-    lwd    = border.size,
-    add    = TRUE
-  )
-
-  if (grid) {
+    ooo <- options()$warn
+    options(warn = -1)
+    maps::map("world", proj = "orthographic", orient = c(centre, 0), col = NA)
+    options(warn = ooo)
 
     sp::plot(
       globe,
-      col    = "transparent",
+      col    = globe.col,
       border = grid.color,
       lty    = grid.type,
       lwd    = grid.size,
       add    = TRUE
     )
 
-    mapproj::map.grid(
-      nx     = nx,
-      ny     = ny,
-      labels = FALSE,
-      col    = grid.color,
-      lty    = grid.type,
-      lwd    = grid.size
+    sp::plot(
+      world,
+      col    = fill,
+      border = border.color,
+      lty    = border.type,
+      lwd    = border.size,
+      add    = TRUE
     )
+
+    if (grid) {
+
+      sp::plot(
+        globe,
+        col    = "transparent",
+        border = grid.color,
+        lty    = grid.type,
+        lwd    = grid.size,
+        add    = TRUE
+      )
+
+      mapproj::map.grid(
+        nx     = nx,
+        ny     = ny,
+        labels = FALSE,
+        col    = grid.color,
+        lty    = grid.type,
+        lwd    = grid.size
+      )
+    }
   }
 
   invisible(world)

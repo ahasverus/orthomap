@@ -1,7 +1,7 @@
 Package: orthomap
 Title: An R package to plot World in orthographic projection without aberrations
 Version: 1.0.0
-Date: 2017-12-06
+Date: 2020-04-03
 Authors@R: person("Nicolas", "Casajus", email = "nicolas.casajus@gmail.com", role = c("aut", "cre"))
 Description:
     The package \textbf{orthomap} contains only one function: \code{orthomap()}. It corrects a bug (some polygons are not correctly projected) in the function \code{maps:map()} when it is used in orthographic projection. The function \code{orthomap()} also returns projected polygons in the \code{sp:SpatialPolygons} format.
@@ -14,5 +14,5 @@ LazyData: true
 Imports: maps, mapproj, rgdal, rgeos, sp, stats
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.0
 NeedsCompilation: no

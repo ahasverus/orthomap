@@ -16,18 +16,15 @@ Installation
 To install the package **orthomap** from GitHub, first install the package [**devtools**](http://cran.r-project.org/web/packages/devtools/index.html) from the CRAN.
 
 ```r
-### Install the < devtools > package
-install.packages("devtools", dependencies = TRUE)
-
-### Load the < devtools > package
-library(devtools)
+### Install the < emotes > package
+install.packages("remotes")
 ```
 
 Then install the **orthomap** package:
 
 ```r
 ### Install the < orthomap > package from GitHub
-devtools::install_github("ahasverus/orthomap")
+remotes::install_github("ahasverus/orthomap")
 
 ### Load the < orthomap > package
 library(orthomap)
